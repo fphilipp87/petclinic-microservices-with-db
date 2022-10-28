@@ -7,27 +7,27 @@ module "iam" {
 }
 
 variable "sec-gr-mutual" {
-  default = "petclinic-k8s-mutual-sec-group2"
+  default = "petclinic-k8s-mutual-sec-group"
 }
 
 variable "sec-gr-k8s-master" {
-  default = "petclinic-k8s-master-sec-group2"
+  default = "petclinic-k8s-master-sec-group"
 }
 
 variable "sec-gr-k8s-worker" {
-  default = "petclinic-k8s-worker-sec-group2"
+  default = "petclinic-k8s-worker-sec-group"
 }
 
 data "aws_vpc" "name" {
   default = true
 }
 
-resource "aws_security_group" "petclinic-mutual-sg2" {
+resource "aws_security_group" "petclinic-mutual-sg" {
   name = var.sec-gr-mutual
   vpc_id = data.aws_vpc.name.id
 }
 
-resource "aws_security_group" "petclinic-kube-worker-sg2" {
+resource "aws_security_group" "petclinic-kube-worker-sg" {
   name = var.sec-gr-k8s-worker
   vpc_id = data.aws_vpc.name.id
 
@@ -65,12 +65,12 @@ resource "aws_security_group" "petclinic-kube-worker-sg2" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "kube-worker-secgroup2"
+    Name = "kube-worker-secgroup"
     "kubernetes.io/cluster/petclinicCluster" = "owned"
   }
 }
 
-resource "aws_security_group" "petclinic-kube-master-sg2" {
+resource "aws_security_group" "petclinic-kube-master-sg" {
   name = var.sec-gr-k8s-master
   vpc_id = data.aws_vpc.name.id
 
@@ -147,7 +147,7 @@ resource "aws_security_group" "petclinic-kube-master-sg2" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "kube-master-secgroup2"
+    Name = "kube-master-secgroup"
   }
 }
 
